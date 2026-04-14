@@ -2,13 +2,18 @@
 bla bla bla 
 
 ## Featurs
-bla bla 
+[] add master password
+[] change master password
+[] add different account
+[] change account values
+[] safe data encrypted
+[] start as exe file
 
 ## Instalation
 bla
 
 ## Usage
-- decrypt passwords with ... 
+- encrypt passwords with ... 
 
 ## Structure
 src/
