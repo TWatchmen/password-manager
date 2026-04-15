@@ -1,20 +1,24 @@
 from pathlib import Path
 from src.ui.main_window import *
 
+"""
+
+Master Password: 123
+
+"""
+
+
 BASE_DIR = Path(__file__).resolve().parent
 database_file_path = BASE_DIR / "src/database/database.db"
 
+root = tk.Tk()
 
-
-
-if not database_file_path.exists():
-    main_window = welcome_window()
-    if __name__ == "__main":
-        main_window.show()
+if database_file_path.exists():
+    app = MainWindow(root, start_screen="login")
 else:
-    main_window = login_window()
-    if __name__ == "__main__":
-        main_window.show()
+    app = MainWindow(root, start_screen="welcome")
+
+root.mainloop()
 
 
 
