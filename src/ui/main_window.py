@@ -7,6 +7,8 @@ from src.backend import password_manager
 class MainWindow:
     def __init__(self, root, start_screen = "welcome"):
         # generate root window
+        self.button_register = None
+        self.login_label = None
         self.root = root
         self.root.geometry("800x600")
         self.root.resizable(width=False, height=False)
@@ -58,9 +60,6 @@ class MainWindow:
 
     def login_action(self):
         pwd = self.master_password.get().strip()
-        password_manager.login(pwd)
-        password_manager.login(pwd)
-
         success = password_manager.login(pwd)
         if success:
             self.show_screen("menu")

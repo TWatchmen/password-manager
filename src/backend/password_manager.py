@@ -16,9 +16,12 @@ def register(password, confirm_password):#
         messagebox.showerror("Error", "Password empty or doesn't match")
 
 def login(password):
-    if db_logic.check_login(password):
+    if not db_logic.check_login(password):
+        messagebox.showerror("Error", "Wrong password")
+        return None
+
+    else:
         print("login success")
         return True
-    else:
-        messagebox.showerror("Error", "Wrong password")
+
 
