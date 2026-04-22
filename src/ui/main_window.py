@@ -42,7 +42,8 @@ class MainWindow:
             self.show_screen("login")
 
 
-
+    # Welcome (start window) user interface
+    # if no database exists in path
     def welcome_window(self):
         tk.Label(self.root, text="Welcome to your Password Manager", font=("Arial", 18)) \
             .place(relx=0.5, rely=0.3, anchor="center")
@@ -58,6 +59,7 @@ class MainWindow:
         self.button_register = tk.Button(self.root, text="Register", command=self.register_action)
         self.button_register.place(relx=0.5, rely=0.5, anchor="center")
 
+    # Login user interface
     def login_window(self):
         self.login_label = tk.Label(self.root, text="Login", font=("Arial", 15))
         self.login_label.place(relx=0.5, rely=0.35, anchor="center")
@@ -68,6 +70,7 @@ class MainWindow:
         self.button_login = tk.Button(self.root, text="Login", command=self.login_action)
         self.button_login.place(relx=0.5, rely=0.5, anchor="center")
 
+    # Menu user interface
     def menu_window(self):
         self.login_label = tk.Label(self.root, text="Menu", font=("Arial", 15))
         self.login_label.place(relx=0.5, rely=0.05, anchor="center")
@@ -93,6 +96,7 @@ class MainWindow:
                                          command=self.settings_action)
         self.button_settings.place(relx=0.85, rely=0.85, anchor="s")
 
+    # Function login action for button
     def login_action(self):
         pwd = self.master_password.get().strip()
         success = password_manager.login(pwd)
@@ -100,13 +104,14 @@ class MainWindow:
             self.show_screen("menu")
 
 
-
+    # Function adding action to the button
     def add_account_action(self):
+        # opening popup window
         self.popup = tk.Toplevel(self.root)
         self.popup.title("Add Account")
         self.popup.geometry("500x400")
 
-
+        # Headline
         self.add_label = tk.Label(self.popup, text="Add Account", font=("Arial", 15))
         self.add_label.place(relx=0.5, rely=0.05, anchor="center")
 
@@ -172,6 +177,7 @@ class MainWindow:
         elif screen_name == "menu":
             self.menu_window()
 
+    # Function clearing window
     def clear_window(self):
         for widget in self.root.winfo_children():
             widget.destroy()
