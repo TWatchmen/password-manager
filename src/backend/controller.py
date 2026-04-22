@@ -1,6 +1,6 @@
 from tkinter import messagebox
 
-from src.backend import db_logic
+from src.backend import database_operations
 from src.ui import main_window
 from src.ui.main_window import *
 
@@ -8,8 +8,8 @@ from src.ui.main_window import *
 def register(password, confirm_password):#
     if password and password == confirm_password:
         print("master pw")
-        db_logic.create_db()
-        db_logic.insert_master_pwd(password)
+        database_operations.create_db()
+        database_operations.insert_master_pwd(password)
         return True
 
     else:
@@ -18,7 +18,7 @@ def register(password, confirm_password):#
 
 
 def login(password):
-    if not db_logic.check_login(password):
+    if not database_operations.check_login(password):
         messagebox.showerror("Error", "Wrong password")
         return None
 
@@ -26,10 +26,24 @@ def login(password):
         print("login success")
         return True
 
+def handle_open_account(listbox, accounts, open_account_window):
+    selection = listbox.curselection()
 
+    if selection:
+        index = selection[0]
+        account = accounts[index]
+        account_id = account[0]
+
+        open_account_window(account_id)
 
 def add_account(plattform, username, email, password, notes):
-    db_logic.insert_account(plattform, username, email, password, notes)
+    database_operations.insert_account(plattform, username, email, password, notes)
     print("add success")
     return True
+
+
+# Function clearing window
+def clear_window(self):
+    for widget in self.root.winfo_children():
+        widget.destroy()
 

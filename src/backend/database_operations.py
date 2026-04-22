@@ -73,3 +73,11 @@ def show_accounts():
     result = cursor.fetchall()
     conn.close()
     return result
+
+def select_account(account_id):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM accounts WHERE id = ?", (account_id,))
+    result = cursor.fetchone()
+    conn.close()
+    return result

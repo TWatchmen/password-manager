@@ -1,9 +1,13 @@
 import tkinter as tk
-from src.backend import controller, db_logic
+from src.backend import controller, database_operations
 
 
 class Actions:
+
+
+
     def __init__(self, ui):
+        self.listbox = None
         self.ui = ui
         self.controller = controller
 
@@ -32,12 +36,13 @@ class Actions:
         notes = self.ui.notes_entry.get().strip()
         controller.add_account(plattform, username, email, password, notes)
         self.ui.popup.destroy()
-        self.ui.show_account_action()
+        self.show_account_action()
         self.ui.show_screen("menu")
 
 
     def show_account_action(self):
-        accounts = db_logic.show_accounts()
+        accounts = database_operations.show_accounts()
+        self.ui.accounts = accounts
 
         for account in accounts:
             self.ui.listbox.insert(tk.END, f"Plattform: {account[1]} |Username: {account[2]} |Email: {account[3]} |Password: "
