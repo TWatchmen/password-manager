@@ -23,7 +23,7 @@ def create_db():
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                        plattform TEXT NOT NULL,
                        username Text,
-                       mail Text NOT NULL,
+                       email Text NOT NULL,
                        password TEXT NOT NULL,
                        notes TEXT
                    )

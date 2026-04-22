@@ -25,3 +25,6 @@ def login(password):
         return True
 
 
+def add_account():
+    return 
+
