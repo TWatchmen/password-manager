@@ -14,6 +14,8 @@ def register(password, confirm_password):#
 
     else:
         messagebox.showerror("Error", "Password empty or doesn't match")
+        return None
+
 
 def login(password):
     if not db_logic.check_login(password):
@@ -25,6 +27,9 @@ def login(password):
         return True
 
 
-def add_account():
-    return 
+
+def add_account(plattform, username, email, password, notes):
+    db_logic.insert_account(plattform, username, email, password, notes)
+    print("add success")
+    return True
 

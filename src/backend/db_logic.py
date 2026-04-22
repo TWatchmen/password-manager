@@ -18,7 +18,7 @@ def create_db():
                     ''')
 
     cursor.execute('''
-                   CREATE TABLE IF NOT EXISTS passwords
+                   CREATE TABLE IF NOT EXISTS accounts
                    (
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                        plattform TEXT NOT NULL,
@@ -43,6 +43,16 @@ def insert_master_pwd(password):
     conn.commit()
     conn.close()
 
+def insert_account(plattform, username, email, password, notes):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO accounts (plattform, username, email, password, notes) VALUES (?, ?, ?, ?, ?)",
+        (plattform, username, email, password, notes, )
+    )
+    conn.commit()
+    conn.close()
+
 def check_login(password):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -56,3 +66,10 @@ def check_login(password):
         return password
     return None
 
+def show_accounts():
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM accounts")
+    result = cursor.fetchall()
+    conn.close()
+    return result

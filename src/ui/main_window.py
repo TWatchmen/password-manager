@@ -1,11 +1,15 @@
 import tkinter as tk
-
-from src.backend import password_manager
-
+from src.backend import controller, db_logic
+from src.services.actions import Actions
 
 class MainWindow:
     def __init__(self, root, start_screen = "welcome"):
         # generate root window
+        self.root = root
+        self.root.geometry("800x600")
+        self.root.resizable(width=False, height=False)
+        self.root.title("Password Manager")
+        self.actions = Actions(self)
         self.password_label = None
         self.notes_label = None
         self.email_label = None
@@ -13,11 +17,11 @@ class MainWindow:
         self.plattform_label = None
         self.button_login = None
         self.add_label = None
-        self.username = None
-        self.notes = None
-        self.password = None
-        self.plattform = None
-        self.email = None
+        self.username_entry = None
+        self.notes_entry = None
+        self.password_entry = None
+        self.plattform_entry = None
+        self.email_entry = None
         self.button_save = None
         self.popup = None
         self.button_settings = None
@@ -27,10 +31,6 @@ class MainWindow:
         self.table_frame = None
         self.button_register = None
         self.login_label = None
-        self.root = root
-        self.root.geometry("800x600")
-        self.root.resizable(width=False, height=False)
-        self.root.title("Password Manager")
         #self.root.configure(background="light grey")
 
         self.master_password = None
@@ -56,7 +56,7 @@ class MainWindow:
         self.master_password_confirm.place(relx=0.5, rely=0.45, anchor="center", width=200)
 
 
-        self.button_register = tk.Button(self.root, text="Register", command=self.register_action)
+        self.button_register = tk.Button(self.root, text="Register", command=self.actions.register_action)
         self.button_register.place(relx=0.5, rely=0.5, anchor="center")
 
     # Login user interface
@@ -67,7 +67,7 @@ class MainWindow:
         self.master_password = tk.Entry(self.root, font=("Arial", 10), show="*")
         self.master_password.place(relx=0.5, rely=0.4, anchor="center", width=200)
 
-        self.button_login = tk.Button(self.root, text="Login", command=self.login_action)
+        self.button_login = tk.Button(self.root, text="Login", command=self.actions.login_action)
         self.button_login.place(relx=0.5, rely=0.5, anchor="center")
 
     # Menu user interface
@@ -80,32 +80,35 @@ class MainWindow:
         self.scrollbar.pack(side="right", fill="y")
 
         # Define Listbox
-        self.listbox = tk.Listbox(self.root, width=100, height=25, yscrollcommand=self.scrollbar.set)
+        self.listbox = tk.Listbox(self.root, width=80, height=20, font=("Arial", 12),
+                                  yscrollcommand=self.scrollbar.set)
         self.listbox.place(relx=0.5, rely=0.1, anchor="n")
 
         # Connect scrollbar with listbox
         self.scrollbar.config(command=self.listbox.yview)
 
         # Button for adding new Accounts
-        self.button_add = tk.Button(self.root, text="Add Account", command=self.add_account_action)
+        self.button_add = tk.Button(self.root, text="Add Account", command=self.add_account_window)
         self.button_add.place(relx=0.15, rely=0.85, anchor="s")
+
+        # Button for changing entry
+        self.button_add = tk.Button(self.root, text="Change Account")
+        self.button_add.place(relx=0.3, rely=0.85, anchor="s")
+
+        # Button for deleting entry
+        self.button_add = tk.Button(self.root, text="Delete Account")
+        self.button_add.place(relx=0.5, rely=0.85, anchor="s")
 
 
         # Button for settings
         self.button_settings = tk.Button(self.root, text="Settings", bg="lightgrey", fg="black",
-                                         command=self.settings_action)
+                                         command=self.actions.settings_action)
         self.button_settings.place(relx=0.85, rely=0.85, anchor="s")
 
-    # Function login action for button
-    def login_action(self):
-        pwd = self.master_password.get().strip()
-        success = password_manager.login(pwd)
-        if success:
-            self.show_screen("menu")
+        self.actions.show_account_action()
 
 
-    # Function adding action to the button
-    def add_account_action(self):
+    def add_account_window(self):
         # opening popup window
         self.popup = tk.Toplevel(self.root)
         self.popup.title("Add Account")
@@ -118,53 +121,36 @@ class MainWindow:
         # Plattform label and entry
         self.plattform_label = tk.Label(self.popup, text="Plattform", font=("Arial", 10))
         self.plattform_label.place(relx=0.5, rely=0.15, anchor="center")
-        self.plattform = tk.Entry(self.popup, font=("Arial", 10))
-        self.plattform.place(relx=0.5, rely=0.2, anchor="center")
+        self.plattform_entry = tk.Entry(self.popup, font=("Arial", 10))
+        self.plattform_entry.place(relx=0.5, rely=0.2, anchor="center")
 
         # Username label and entry
         self.username_label = tk.Label(self.popup, text="Username", font=("Arial", 10))
         self.username_label.place(relx=0.5, rely=0.25, anchor="center")
-        self.username = tk.Entry(self.popup, font=("Arial", 10))
-        self.username.place(relx=0.5, rely=0.3, anchor="center")
+        self.username_entry = tk.Entry(self.popup, font=("Arial", 10))
+        self.username_entry.place(relx=0.5, rely=0.3, anchor="center")
 
         # Email label and entry
         self.email_label = tk.Label(self.popup, text="Email", font=("Arial", 10))
         self.email_label.place(relx=0.5, rely=0.35, anchor="center")
-        self.email = tk.Entry(self.popup, font=("Arial", 10))
-        self.email.place(relx=0.5, rely=0.4, anchor="center")
+        self.email_entry = tk.Entry(self.popup, font=("Arial", 10))
+        self.email_entry.place(relx=0.5, rely=0.4, anchor="center")
 
         # Password label and entry
         self.password_label = tk.Label(self.popup, text="Password", font=("Arial", 10))
         self.password_label.place(relx=0.5, rely=0.45, anchor="center")
-        self.password = tk.Entry(self.popup, font=("Arial", 10))
-        self.password.place(relx=0.5, rely=0.5, anchor="center")
+        self.password_entry = tk.Entry(self.popup, font=("Arial", 10))
+        self.password_entry.place(relx=0.5, rely=0.5, anchor="center")
 
         # Notes label and entry
-        self.notes_label = tk.Label(self.popup, text="Notes", font=("Arial", 10))
+        self.notes_label = tk.Label(self.popup, text="Notes (optional)", font=("Arial", 10))
         self.notes_label.place(relx=0.5, rely=0.55, anchor="center")
-        self.notes = tk.Entry(self.popup, font=("Arial", 10))
-        self.notes.place(relx=0.5, rely=0.6, anchor="center")
+        self.notes_entry = tk.Entry(self.popup, font=("Arial", 10))
+        self.notes_entry.place(relx=0.5, rely=0.6, anchor="center")
 
-
-
-        self.button_save = tk.Button(self.popup,text="Save")
+        # Button for saving entries in database
+        self.button_save = tk.Button(self.popup, text="Save", command=self.actions.add_account_action)
         self.button_save.place(relx=0.5, rely=0.8, anchor="center")
-
-
-
-
-
-    def settings_action(self):
-        return
-
-    def register_action(self):
-        pwd = self.master_password.get().strip()
-        confirm_pwd = self.master_password_confirm.get().strip()
-        password_manager.register(pwd, confirm_pwd)
-
-        success = password_manager.register(pwd, confirm_pwd)
-        if success:
-            self.show_screen("login")
 
 
     def show_screen(self, screen_name):
