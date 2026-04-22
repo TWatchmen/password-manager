@@ -72,7 +72,7 @@ class MainWindow:
 
     # Menu user interface
     def menu_window(self):
-        self.login_label = tk.Label(self.root, text="Menu", font=("Arial", 15))
+        self.login_label = tk.Label(self.root, text="Password Manager ", font=("Arial", 18))
         self.login_label.place(relx=0.5, rely=0.05, anchor="center")
 
         # Scrollbar
@@ -80,7 +80,7 @@ class MainWindow:
         self.scrollbar.pack(side="right", fill="y")
 
         # Define Listbox
-        self.listbox = tk.Listbox(self.root, width=80, height=20, font=("Arial", 12),
+        self.listbox = tk.Listbox(self.root, width=85, height=20, font=("Arial", 12),
                                   yscrollcommand=self.scrollbar.set)
         self.listbox.place(relx=0.5, rely=0.1, anchor="n")
 
@@ -97,13 +97,13 @@ class MainWindow:
 
         # Button for deleting entry
         self.button_add = tk.Button(self.root, text="Delete Account")
-        self.button_add.place(relx=0.5, rely=0.85, anchor="s")
+        self.button_add.place(relx=0.45, rely=0.85, anchor="s")
 
 
         # Button for settings
         self.button_settings = tk.Button(self.root, text="Settings", bg="lightgrey", fg="black",
                                          command=self.actions.settings_action)
-        self.button_settings.place(relx=0.85, rely=0.85, anchor="s")
+        self.button_settings.place(relx=0.9, rely=0.85, anchor="s")
 
         self.actions.show_account_action()
 
