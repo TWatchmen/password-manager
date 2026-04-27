@@ -8,6 +8,7 @@ from src.ui.popup_window import PopupWindow
 class MainWindow:
     def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
         # generate root window
+        self.button_open = None
         self.accounts = None
         self.popup_account = None
         self.root = root
@@ -98,9 +99,9 @@ class MainWindow:
         self.button_add.place(relx=0.15, rely=0.85, anchor="s")
 
         # Button for changing entry
-        self.button_add = tk.Button(self.root, text="Open",
-                                    command=lambda: controller.handle_open_account(self.listbox, self.accounts, self.open_account_window))
-        self.button_add.place(relx=0.3, rely=0.85, anchor="s")
+        self.button_open = tk.Button(self.root, text="Open",
+                                    command=lambda: self.actions.handle_open_account(self.listbox, self.accounts, self.open_account_window))
+        self.button_open.place(relx=0.3, rely=0.85, anchor="s")
 
 
         # Button for settings
@@ -140,11 +141,11 @@ class MainWindow:
             account = database_operations.select_account(account_id)
 
             if account:
-                self.popup_window.plattform_entry.insert(0, account[1])
-                self.popup_window.username_entry.insert(0, account[2])
-                self.popup_window.email_entry.insert(0, account[3])
-                self.popup_window.password_entry.insert(0, account[4])
-                self.popup_window.notes_entry.insert(0, account[5])
+                self.popup_window.plattform_entry.insert(0, account.plattform)
+                self.popup_window.username_entry.insert(0, account.username)
+                self.popup_window.email_entry.insert(0, account.email)
+                self.popup_window.password_entry.insert(0, account.password)
+                self.popup_window.notes_entry.insert(0, account.notes)
 
 
     def show_screen(self, screen_name):

@@ -1,5 +1,6 @@
 import tkinter as tk
 from src.backend import controller, database_operations
+from src.models.account import Account
 
 
 class Actions:
@@ -47,7 +48,15 @@ class Actions:
         self.show_account_action()
         self.main_ui.show_screen("menu")
 
+    def handle_open_account(self, listbox, accounts, open_account_window):
+        selection = listbox.curselection()
 
+        if selection:
+            index = selection[0]
+            account = accounts[index]
+            account_id = account.id
+
+            open_account_window(account_id)
 
     def show_account_action(self):
         accounts = database_operations.show_accounts()
@@ -55,8 +64,8 @@ class Actions:
         # Empty list before reload
         self.main_ui.listbox.delete(0, tk.END)
         for account in accounts:
-            self.main_ui.listbox.insert(tk.END, f"Plattform: {account[1]} |Username: {account[2]} |Email: {account[3]} |Password: "
-                                        f"{account[4]} |Notes: {account[5]}")
+            self.main_ui.listbox.insert(tk.END, f"Plattform: {account.plattform} |Username: {account.username} |Email: {account.email} |Password: "
+                                        f"{account.password} |Notes: {account.notes}")
         return
 
 

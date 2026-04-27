@@ -1,9 +1,10 @@
 import sqlite3
 from pathlib import Path
+from src.config import DB_PATH as db_path
+from src.models.account import Account
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-db_path = BASE_DIR.parent / "data" / "database.db"
+
 db_path.parent.mkdir(parents=True, exist_ok=True)
 
 def create_db():
@@ -70,14 +71,14 @@ def show_accounts():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM accounts ORDER BY plattform ASC")
-    result = cursor.fetchall()
+    rows = cursor.fetchall()
     conn.close()
-    return result
+    return [Account.from_db_row(row) for row in rows]
 
 def select_account(account_id):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM accounts WHERE id = ?", (account_id,))
-    result = cursor.fetchone()
+    row = cursor.fetchone()
     conn.close()
-    return result
+    return Account.from_db_row(row)

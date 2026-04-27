@@ -1,9 +1,6 @@
 from tkinter import messagebox
 
 from src.backend import database_operations
-from src.ui import main_window
-from src.ui.main_window import *
-
 
 def register(password, confirm_password):#
     if password and password == confirm_password:
