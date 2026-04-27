@@ -3,12 +3,6 @@ import tkinter as tk
 from src.ui.main_window import MainWindow
 from src.config import DB_PATH
 
-"""
-
-Master Password: 123
-
-"""
-
 
 # Starting the GUI
 root = tk.Tk()
