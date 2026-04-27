@@ -16,9 +16,9 @@ root = tk.Tk()
 
 # Checking if database path already exits
 if database_file_path.exists():
-    app = MainWindow(root, start_screen="login")
+    app = MainWindow(root, start_screen="login", main_ui=True, popup_ui=True)
 else:
-    app = MainWindow(root, start_screen="welcome")
+    app = MainWindow(root, start_screen="welcome", main_ui=True, popup_ui=True)
 
 # Run
 root.mainloop()

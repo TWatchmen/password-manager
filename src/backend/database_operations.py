@@ -69,7 +69,7 @@ def check_login(password):
 def show_accounts():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM accounts")
+    cursor.execute("SELECT * FROM accounts ORDER BY plattform ASC")
     result = cursor.fetchall()
     conn.close()
     return result

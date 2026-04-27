@@ -9,7 +9,7 @@ from src.ui.popup_window import PopupWindow
 
 
 class MainWindow:
-    def __init__(self, root, start_screen = "welcome"):
+    def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
         # generate root window
         self.accounts = None
         self.popup_account = None
@@ -17,8 +17,9 @@ class MainWindow:
         self.root.geometry("800x600")
         self.root.resizable(width=False, height=False)
         self.root.title("Password Manager")
-        self.actions = Actions(self)
         self.popup_window = PopupWindow(self.root)
+        self.actions = Actions(self, self.popup_window)
+        self.ui = popup_window
         self.password_label = None
         self.notes_label = None
         self.email_label = None
@@ -40,7 +41,6 @@ class MainWindow:
         self.table_frame = None
         self.button_register = None
         self.login_label = None
-        #self.root.configure(background="light grey")
 
         self.master_password = None
         self.master_password_confirm = None
@@ -119,43 +119,11 @@ class MainWindow:
     def add_account_window(self):
         self.popup = self.popup_window.create_popup(title="Add Account")
 
-        # Headline
-        self.add_label = tk.Label(self.popup, text="Add Account", font=("Arial", 15))
-        self.add_label.place(relx=0.5, rely=0.05, anchor="center")
-
-        # Plattform label and entry
-        self.plattform_label = tk.Label(self.popup, text="Plattform", font=("Arial", 10))
-        self.plattform_label.place(relx=0.4, rely=0.15, anchor="center")
-        self.plattform_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.plattform_entry.place(relx=0.5, rely=0.2, anchor="center", width=250)
-
-        # Username label and entry
-        self.username_label = tk.Label(self.popup, text="Username", font=("Arial", 10))
-        self.username_label.place(relx=0.4, rely=0.25, anchor="center")
-        self.username_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.username_entry.place(relx=0.5, rely=0.3, anchor="center", width=250)
-
-        # Email label and entry
-        self.email_label = tk.Label(self.popup, text="Email", font=("Arial", 10))
-        self.email_label.place(relx=0.4, rely=0.35, anchor="center")
-        self.email_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.email_entry.place(relx=0.5, rely=0.4, anchor="center", width=250)
-
-        # Password label and entry
-        self.password_label = tk.Label(self.popup, text="Password", font=("Arial", 10))
-        self.password_label.place(relx=0.4, rely=0.45, anchor="center")
-        self.password_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.password_entry.place(relx=0.5, rely=0.5, anchor="center", width=250)
-
-        # Notes label and entry
-        self.notes_label = tk.Label(self.popup, text="Notes (optional)", font=("Arial", 10))
-        self.notes_label.place(relx=0.4, rely=0.55, anchor="center")
-        self.notes_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.notes_entry.place(relx=0.5, rely=0.6, anchor="center", width=250)
-
         # Button for saving entries in database
         self.button_save = tk.Button(self.popup, text="Save", command=self.actions.add_account_action)
         self.button_save.place(relx=0.5, rely=0.8, anchor="center")
+
+
 
 
 

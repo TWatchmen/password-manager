@@ -6,46 +6,53 @@ class Actions:
 
 
 
-    def __init__(self, ui):
+    def __init__(self, main_ui, popup_ui):
         self.listbox = None
-        self.ui = ui
+        self.main_ui = main_ui
+        self.popup_ui = popup_ui
         self.controller = controller
 
     # Function login action for button
     def login_action(self):
-        pwd = self.ui.master_password.get().strip()
+        pwd = self.main_ui.master_password.get().strip()
         success = controller.login(pwd)
         if success:
-            self.ui.show_screen("menu")
+            self.main_ui.show_screen("menu")
 
     def register_action(self):
-        pwd = self.ui.master_password.get().strip()
-        confirm_pwd = self.ui.master_password_confirm.get().strip()
+        pwd = self.main_ui.master_password.get().strip()
+        confirm_pwd = self.main_ui.master_password_confirm.get().strip()
         controller.register(pwd, confirm_pwd)
 
         success = controller.register(pwd, confirm_pwd)
         if success:
-            self.ui.show_screen("login")
+            self.main_ui.show_screen("login")
 
     # Function adding action to the button
     def add_account_action(self):
-        plattform = self.ui.plattform_entry.get().strip()
-        username = self.ui.username_entry.get().strip()
-        email = self.ui.email_entry.get().strip()
-        password = self.ui.password_entry.get().strip()
-        notes = self.ui.notes_entry.get().strip()
+
+        # Debug print
+        print(self.popup_ui.plattform_entry)
+
+
+        plattform = self.popup_ui.plattform_entry.get().strip()
+        username = self.popup_ui.username_entry.get().strip()
+        email = self.popup_ui.email_entry.get().strip()
+        password = self.popup_ui.password_entry.get().strip()
+        notes = self.popup_ui.notes_entry.get().strip()
         controller.add_account(plattform, username, email, password, notes)
-        self.ui.popup.destroy()
+        self.popup_ui.popup.destroy()
         self.show_account_action()
-        self.ui.show_screen("menu")
+        self.main_ui.show_screen("menu")
 
 
     def show_account_action(self):
         accounts = database_operations.show_accounts()
-        self.ui.accounts = accounts
-
+        self.main_ui.accounts = accounts
+        # Empty list before reload
+        self.main_ui.listbox.delete(0, tk.END)
         for account in accounts:
-            self.ui.listbox.insert(tk.END, f"Plattform: {account[1]} |Username: {account[2]} |Email: {account[3]} |Password: "
+            self.main_ui.listbox.insert(tk.END, f"Plattform: {account[1]} |Username: {account[2]} |Email: {account[3]} |Password: "
                                         f"{account[4]} |Notes: {account[5]}")
         return
 
