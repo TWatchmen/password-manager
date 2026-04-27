@@ -1,0 +1,16 @@
+- screenshots in die readme
+- readme detailliert
+- security sachen in die utils
+- models für den Account
+class Account:
+    def __init__(self, id, plattform, username, email, password, notes):
+        self.id = id
+        self.plattform = plattform
+        self.username = username
+        self.email = email
+        self.password = password
+        self.notes = notes
+
+architecture.md in die docs
+license, MIT licens
+.gitignore hinzufügen

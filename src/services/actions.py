@@ -4,8 +4,6 @@ from src.backend import controller, database_operations
 
 class Actions:
 
-
-
     def __init__(self, main_ui, popup_ui):
         self.listbox = None
         self.main_ui = main_ui
@@ -22,11 +20,15 @@ class Actions:
     def register_action(self):
         pwd = self.main_ui.master_password.get().strip()
         confirm_pwd = self.main_ui.master_password_confirm.get().strip()
-        controller.register(pwd, confirm_pwd)
-
         success = controller.register(pwd, confirm_pwd)
         if success:
             self.main_ui.show_screen("login")
+
+    def add_account(self, plattform, username, email, password, notes):
+        database_operations.insert_account(plattform, username, email, password, notes)
+        print("add success")
+        return True
+
 
     # Function adding action to the button
     def add_account_action(self):
@@ -40,10 +42,11 @@ class Actions:
         email = self.popup_ui.email_entry.get().strip()
         password = self.popup_ui.password_entry.get().strip()
         notes = self.popup_ui.notes_entry.get().strip()
-        controller.add_account(plattform, username, email, password, notes)
+        self.add_account(plattform, username, email, password, notes)
         self.popup_ui.popup.destroy()
         self.show_account_action()
         self.main_ui.show_screen("menu")
+
 
 
     def show_account_action(self):

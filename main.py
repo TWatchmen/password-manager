@@ -9,7 +9,7 @@ Master Password: 123
 
 # Getting database path
 BASE_DIR = Path(__file__).resolve().parent
-database_file_path = BASE_DIR / "src/database/database.db"
+database_file_path = BASE_DIR / "data/database/database.db"
 
 # Starting the GUI
 root = tk.Tk()

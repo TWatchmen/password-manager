@@ -1,8 +1,5 @@
 import tkinter as tk
-from operator import length_hint
-from src.backend import database_operations
 from src.backend import controller, database_operations
-from src.services import actions
 from src.services.actions import Actions
 from src.ui import popup_window
 from src.ui.popup_window import PopupWindow
@@ -131,40 +128,6 @@ class MainWindow:
 
         self.popup = self.popup_window.create_popup(title="Account")
 
-        # Headline
-        self.add_label = tk.Label(self.popup, text="Add Account", font=("Arial", 15))
-        self.add_label.place(relx=0.5, rely=0.05, anchor="center")
-
-        # Plattform label and entry
-        self.plattform_label = tk.Label(self.popup, text="Plattform", font=("Arial", 10))
-        self.plattform_label.place(relx=0.4, rely=0.15, anchor="center")
-        self.plattform_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.plattform_entry.place(relx=0.5, rely=0.2, anchor="center", width=250)
-
-        # Username label and entry
-        self.username_label = tk.Label(self.popup, text="Username", font=("Arial", 10))
-        self.username_label.place(relx=0.4, rely=0.25, anchor="center")
-        self.username_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.username_entry.place(relx=0.5, rely=0.3, anchor="center", width=250)
-
-        # Email label and entry
-        self.email_label = tk.Label(self.popup, text="Email", font=("Arial", 10))
-        self.email_label.place(relx=0.4, rely=0.35, anchor="center")
-        self.email_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.email_entry.place(relx=0.5, rely=0.4, anchor="center", width=250)
-
-        # Password label and entry
-        self.password_label = tk.Label(self.popup, text="Password", font=("Arial", 10))
-        self.password_label.place(relx=0.4, rely=0.45, anchor="center")
-        self.password_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.password_entry.place(relx=0.5, rely=0.5, anchor="center", width=250)
-
-        # Notes label and entry
-        self.notes_label = tk.Label(self.popup, text="Notes (optional)", font=("Arial", 10))
-        self.notes_label.place(relx=0.4, rely=0.55, anchor="center")
-        self.notes_entry = tk.Entry(self.popup, font=("Arial", 10))
-        self.notes_entry.place(relx=0.5, rely=0.6, anchor="center", width=250)
-
         # Button for saving entries in database
         self.button_save = tk.Button(self.popup, text="Save", bg="red")
         self.button_save.place(relx=0.4, rely=0.8, anchor="center")
@@ -177,18 +140,15 @@ class MainWindow:
             account = database_operations.select_account(account_id)
 
             if account:
-                self.plattform_entry.insert(0, account[1])
-                self.username_entry.insert(0, account[2])
-                self.email_entry.insert(0, account[3])
-                self.password_entry.insert(0, account[4])
-                self.notes_entry.insert(0, account[5])
-
-
-
+                self.popup_window.plattform_entry.insert(0, account[1])
+                self.popup_window.username_entry.insert(0, account[2])
+                self.popup_window.email_entry.insert(0, account[3])
+                self.popup_window.password_entry.insert(0, account[4])
+                self.popup_window.notes_entry.insert(0, account[5])
 
 
     def show_screen(self, screen_name):
-        controller.clear_window(self)
+        self.clear_window()
 
         if screen_name == "welcome":
             self.welcome_window()
@@ -196,6 +156,11 @@ class MainWindow:
             self.login_window()
         elif screen_name == "menu":
             self.menu_window()
+
+    # Function clearing window
+    def clear_window(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
 
 
 

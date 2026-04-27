@@ -35,15 +35,3 @@ def handle_open_account(listbox, accounts, open_account_window):
         account_id = account[0]
 
         open_account_window(account_id)
-
-def add_account(plattform, username, email, password, notes):
-    database_operations.insert_account(plattform, username, email, password, notes)
-    print("add success")
-    return True
-
-
-# Function clearing window
-def clear_window(self):
-    for widget in self.root.winfo_children():
-        widget.destroy()
-
