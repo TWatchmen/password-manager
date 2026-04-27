@@ -1,28 +1,35 @@
 # password-manager
-bla bla bla 
+Tool to manage your passwords
+
+
 
 ## Featurs
-[] add master password
-[] change master password
-[] add different account
-[] change account values
-[] safe data encrypted
-[] start as exe file
+    [] add master password
+    [] change master password
+    [] add different account
+    [] change account values
+    [] safe data encrypted
+    [] start as exe file
 
-## Instalation
-bla
-
-## Usage
-- encrypt passwords with ... 
+## Installation
+...
 
 ## Structure
-src/
-
-docs/
+    .
+    ├── data                   
+    ├── docs                    
+    ├── src
+    │   ├── backend
+    │   │   └── database_operations.py
+    │   ├── models
+    │   ├── services
+    │   ├── ui
+    │   └── utils
+    ├── .gitignore                    
+    ├── main.py                   
+    ├── LICENSE
+    └── README.md
 
 ## Technology
 - Python
-  
-## Roadmap
-[] GUI 
-[] SQL Database
+- SQLite

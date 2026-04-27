@@ -1,6 +1,5 @@
 import sqlite3
-from pathlib import Path
-from src.config import DB_PATH as db_path
+from src.utils.config import DB_PATH as db_path
 from src.models.account import Account
 
 

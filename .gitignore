@@ -19,3 +19,6 @@ data/database.db
 
 # Logs
 *.log
+
+# Config
+src/utils/config.py

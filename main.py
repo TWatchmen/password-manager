@@ -1,7 +1,6 @@
-from pathlib import Path
 import tkinter as tk
 from src.ui.main_window import MainWindow
-from src.config import DB_PATH
+from src.utils.config import DB_PATH
 
 
 # Starting the GUI

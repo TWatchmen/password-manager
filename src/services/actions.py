@@ -1,6 +1,10 @@
 import tkinter as tk
-from src.backend import controller, database_operations
-from src.models.account import Account
+from tkinter import messagebox
+
+from src.backend import database_operations
+
+
+
 
 
 class Actions:
@@ -9,19 +13,18 @@ class Actions:
         self.listbox = None
         self.main_ui = main_ui
         self.popup_ui = popup_ui
-        self.controller = controller
 
     # Function login action for button
     def login_action(self):
         pwd = self.main_ui.master_password.get().strip()
-        success = controller.login(pwd)
+        success = self.login(pwd)
         if success:
             self.main_ui.show_screen("menu")
 
     def register_action(self):
         pwd = self.main_ui.master_password.get().strip()
         confirm_pwd = self.main_ui.master_password_confirm.get().strip()
-        success = controller.register(pwd, confirm_pwd)
+        success = self.register(pwd, confirm_pwd)
         if success:
             self.main_ui.show_screen("login")
 
@@ -67,6 +70,31 @@ class Actions:
             self.main_ui.listbox.insert(tk.END, f"Plattform: {account.plattform} |Username: {account.username} |Email: {account.email} |Password: "
                                         f"{account.password} |Notes: {account.notes}")
         return
+
+    def register(self, password, confirm_password):  #
+        if password and password == confirm_password:
+            print("master pw")
+            database_operations.create_db()
+            database_operations.insert_master_pwd(password)
+            return True
+
+        else:
+            messagebox.showerror("Error", "Password empty or doesn't match")
+            return None
+
+    def login(self, password):
+        if not database_operations.check_login(password):
+            messagebox.showerror("Error", "Wrong password")
+            return None
+
+        else:
+            print("login success")
+            return True
+
+
+    def edit_account(self):
+        return
+
 
 
     def settings_action(self):

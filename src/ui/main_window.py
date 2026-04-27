@@ -1,5 +1,5 @@
 import tkinter as tk
-from src.backend import controller, database_operations
+from src.backend import database_operations
 from src.services.actions import Actions
 from src.ui import popup_window
 from src.ui.popup_window import PopupWindow
