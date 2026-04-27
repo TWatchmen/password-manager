@@ -2,8 +2,8 @@ import sqlite3
 from pathlib import Path
 
 
-BASE_DIR = Path(__file__).resolve().parent
-db_path = BASE_DIR.parent / "database" / "database.db"
+BASE_DIR = Path(__file__).resolve().parent.parent
+db_path = BASE_DIR.parent / "data" / "database.db"
 db_path.parent.mkdir(parents=True, exist_ok=True)
 
 def create_db():

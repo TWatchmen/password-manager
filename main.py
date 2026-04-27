@@ -8,8 +8,8 @@ Master Password: 123
 """
 
 # Getting database path
-BASE_DIR = Path(__file__).resolve().parent
-database_file_path = BASE_DIR / "data/database/database.db"
+BASE_DIR = Path(__file__).resolve().parent.parent
+database_file_path = BASE_DIR / "data/database.db"
 
 # Starting the GUI
 root = tk.Tk()
