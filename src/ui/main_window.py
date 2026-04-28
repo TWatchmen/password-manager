@@ -8,6 +8,7 @@ from src.ui.popup_window import PopupWindow
 class MainWindow:
     def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
         # generate root window
+        self.button_close = None
         self.button_open = None
         self.accounts = None
         self.popup_account = None
@@ -103,11 +104,12 @@ class MainWindow:
                                     command=lambda: self.actions.handle_open_account(self.listbox, self.accounts, self.open_account_window))
         self.button_open.place(relx=0.3, rely=0.85, anchor="s")
 
-
+        """
         # Button for settings
         self.button_settings = tk.Button(self.root, text="Settings", bg="lightgrey", fg="black",
                                          command=self.actions.settings_action)
         self.button_settings.place(relx=0.9, rely=0.85, anchor="s")
+        """
 
         self.actions.show_account_action()
 
@@ -129,13 +131,16 @@ class MainWindow:
 
         self.popup = self.popup_window.create_popup(title="Account")
 
+        """
         # Button for saving entries in database
         self.button_save = tk.Button(self.popup, text="Save", bg="red")
         self.button_save.place(relx=0.4, rely=0.8, anchor="center")
+        """
 
-        self.button_save = tk.Button(self.popup, text="Close",
+
+        self.button_close = tk.Button(self.popup, text="Close",
                                      command=lambda: self.popup.destroy())
-        self.button_save.place(relx=0.6, rely=0.8, anchor="center")
+        self.button_close.place(relx=0.6, rely=0.8, anchor="center")
 
         if account_id is not None:
             account = database_operations.select_account(account_id)
