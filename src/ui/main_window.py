@@ -4,6 +4,8 @@ from src.services.actions import Actions
 from src.ui import popup_window
 from src.ui.popup_window import PopupWindow
 
+# Ui
+
 
 class MainWindow:
     def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
