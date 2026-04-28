@@ -1,8 +1,13 @@
 import tkinter as tk
+from src.utils import security
 
 
 class PopupWindow:
     def __init__(self, root):
+        self.security = None
+        self.password_strength_indicator_3 = None
+        self.password_strength_indicator_2 = None
+        self.password_strength_indicator_1 = None
         self.password_strength_label = None
         self.password_strength_indicator = None
         self.add_label = None
@@ -55,11 +60,16 @@ class PopupWindow:
         self.password_label.place(relx=0.4, rely=0.45, anchor="center")
         self.password_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.password_entry.place(relx=0.5, rely=0.5, anchor="center", width=250)
-        self.password_entry.bind("<KeyRelease>", self.check_password_strength)
+        self.password_entry.bind("<KeyRelease>", self.security.check_password_strength)
         self.password_strength_label = tk.Label(self.popup, text="Password Strength", font=("Arial", 8))
-        self.password_strength_label.place(relx=0.8, rely=0.45, anchor="center")
-        self.password_strength_indicator = tk.Label(self.popup, text="     ", font=("Arial", 10), bg="red")
-        self.password_strength_indicator.place(relx=0.8, rely=0.5, anchor="center")
+        self.password_strength_label.place(relx=0.85, rely=0.45, anchor="center")
+
+        self.password_strength_indicator_1 = tk.Label(self.popup, text="   ", font=("Arial", 10))
+        self.password_strength_indicator_1.place(relx=0.8, rely=0.5, anchor="center")
+        self.password_strength_indicator_2 = tk.Label(self.popup, text="   ", font=("Arial", 10))
+        self.password_strength_indicator_2.place(relx=0.84, rely=0.5, anchor="center")
+        self.password_strength_indicator_3 = tk.Label(self.popup, text="   ", font=("Arial", 10))
+        self.password_strength_indicator_3.place(relx=0.88, rely=0.5, anchor="center")
 
         # Notes label and entry
         self.notes_label = tk.Label(self.popup, text="Notes (optional)", font=("Arial", 10))
@@ -69,14 +79,4 @@ class PopupWindow:
 
 
         return self.popup
-
-
-    def check_password_strength(self, event=None):
-        password = self.password_entry.get()
-
-        if len(password) >= 8:
-            self.password_strength_indicator.config(bg="green")
-        else:
-            self.password_strength_indicator.config(bg="red")
-
 

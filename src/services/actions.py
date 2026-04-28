@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 from src.backend import database_operations
 from src.backend.database_operations import show_accounts
+from src.ui import popup_window
 
 
 class Actions:
@@ -67,6 +68,7 @@ class Actions:
         for account in accounts:
             self.main_ui.listbox.insert(tk.END, f"Plattform: {account.plattform} |Username: {account.username} |Email: {account.email} |Password: "
                                         f"{account.password} |Notes: {account.notes}")
+
         return
 
     def register(self, password, confirm_password):  #

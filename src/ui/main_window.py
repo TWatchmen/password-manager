@@ -3,6 +3,7 @@ from src.backend import database_operations
 from src.services.actions import Actions
 from src.ui import popup_window
 from src.ui.popup_window import PopupWindow
+from src.utils.security import PasswordSecurity
 
 # Ui
 
@@ -20,6 +21,8 @@ class MainWindow:
         self.root.resizable(width=False, height=False)
         self.root.title("Password Manager")
         self.popup_window = PopupWindow(self.root)
+        self.security = PasswordSecurity(self.popup_window)
+        self.popup_window.security = self.security
         self.actions = Actions(self, self.popup_window)
         self.ui = popup_window
         self.password_label = None
@@ -156,6 +159,7 @@ class MainWindow:
                 self.popup_window.email_entry.insert(0, account.email)
                 self.popup_window.password_entry.insert(0, account.password)
                 self.popup_window.notes_entry.insert(0, account.notes)
+        self.popup_window.security.check_password_strength()
 
 
 
