@@ -10,6 +10,7 @@ from src.ui.popup_window import PopupWindow
 class MainWindow:
     def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
         # generate root window
+        self.password_strength_indicator = None
         self.button_close = None
         self.button_open = None
         self.accounts = None
@@ -28,11 +29,6 @@ class MainWindow:
         self.plattform_label = None
         self.button_login = None
         self.add_label = None
-        self.username_entry = None
-        self.notes_entry = None
-        self.password_entry = None
-        self.plattform_entry = None
-        self.email_entry = None
         self.button_save = None
         self.popup = None
         self.button_settings = None
@@ -121,6 +117,9 @@ class MainWindow:
     def add_account_window(self):
         self.popup = self.popup_window.create_popup(title="Add Account")
 
+
+
+
         # Button for saving entries in database
         self.button_save = tk.Button(self.popup, text="Save", command=self.actions.add_account_action)
         self.button_save.place(relx=0.5, rely=0.8, anchor="center")
@@ -133,11 +132,15 @@ class MainWindow:
 
         self.popup = self.popup_window.create_popup(title="Account")
 
-        """
         # Button for saving entries in database
-        self.button_save = tk.Button(self.popup, text="Save", bg="red")
+        self.button_save = tk.Button(self.popup, text="Save",
+                                     command=lambda: self.actions.edit_account(account_id,
+                                        self.popup_window.plattform_entry.get().strip(),
+                                        self.popup_window.username_entry.get().strip(),
+                                        self.popup_window.email_entry.get().strip(),
+                                        self.popup_window.password_entry.get().strip(),
+                                        self.popup_window.notes_entry.get().strip()))
         self.button_save.place(relx=0.4, rely=0.8, anchor="center")
-        """
 
 
         self.button_close = tk.Button(self.popup, text="Close",
@@ -153,6 +156,7 @@ class MainWindow:
                 self.popup_window.email_entry.insert(0, account.email)
                 self.popup_window.password_entry.insert(0, account.password)
                 self.popup_window.notes_entry.insert(0, account.notes)
+
 
 
     def show_screen(self, screen_name):

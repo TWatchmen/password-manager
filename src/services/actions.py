@@ -2,9 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 from src.backend import database_operations
-
-
-
+from src.backend.database_operations import show_accounts
 
 
 class Actions:
@@ -92,8 +90,12 @@ class Actions:
             return True
 
 
-    def edit_account(self):
-        return
+    def edit_account(self,account_id, plattform, username, email, password, notes):
+        database_operations.save_account(account_id, plattform, username, email, password, notes)
+        self.popup_ui.popup.destroy()
+        self.show_account_action()
+        return None
+
 
 
 
