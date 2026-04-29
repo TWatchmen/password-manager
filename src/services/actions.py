@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from src.backend import database_operations
-from src.backend.database_operations import show_accounts
+from src.backend import database_actions
+from src.backend.database_actions import show_accounts
 from src.ui import popup_window
 
 
@@ -28,7 +28,7 @@ class Actions:
             self.main_ui.show_screen("login")
 
     def add_account(self, plattform, username, email, password, notes):
-        database_operations.insert_account(plattform, username, email, password, notes)
+        database_actions.insert_account(plattform, username, email, password, notes)
         print("add success")
         return True
 
@@ -61,7 +61,7 @@ class Actions:
             open_account_window(account_id)
 
     def show_account_action(self):
-        accounts = database_operations.show_accounts()
+        accounts = database_actions.show_accounts()
         self.main_ui.accounts = accounts
         # Empty list before reload
         self.main_ui.listbox.delete(0, tk.END)
@@ -74,8 +74,8 @@ class Actions:
     def register(self, password, confirm_password):  #
         if password and password == confirm_password:
             print("master pw")
-            database_operations.create_db()
-            database_operations.insert_master_pwd(password)
+            database_actions.create_db()
+            database_actions.insert_master_pwd(password)
             return True
 
         else:
@@ -83,7 +83,7 @@ class Actions:
             return None
 
     def login(self, password):
-        if not database_operations.check_login(password):
+        if not database_actions.check_login(password):
             messagebox.showerror("Error", "Wrong password")
             return None
 
@@ -93,7 +93,7 @@ class Actions:
 
 
     def edit_account(self,account_id, plattform, username, email, password, notes):
-        database_operations.save_account(account_id, plattform, username, email, password, notes)
+        database_actions.save_account(account_id, plattform, username, email, password, notes)
         self.popup_ui.popup.destroy()
         self.show_account_action()
         return None

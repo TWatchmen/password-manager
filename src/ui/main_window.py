@@ -1,5 +1,5 @@
 import tkinter as tk
-from src.backend import database_operations
+from src.backend import database_actions
 from src.services.actions import Actions
 from src.ui import popup_window
 from src.ui.popup_window import PopupWindow
@@ -155,7 +155,7 @@ class MainWindow:
         self.button_close.place(relx=0.6, rely=0.8, anchor="center")
 
         if account_id is not None:
-            account = database_operations.select_account(account_id)
+            account = database_actions.select_account(account_id)
 
             if account:
                 self.popup_window.plattform_entry.insert(0, account.plattform)
