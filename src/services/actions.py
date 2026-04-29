@@ -1,5 +1,9 @@
+import secrets
+import string
+import random
 import tkinter as tk
 from tkinter import messagebox
+from tkinter.constants import INSERT
 
 from src.backend import database_actions
 from src.backend.database_actions import show_accounts
@@ -97,6 +101,17 @@ class Actions:
         self.popup_ui.popup.destroy()
         self.show_account_action()
         return None
+
+    def generate_password(self):
+        characters = string.ascii_letters + string.digits + string.punctuation
+        random_password = "".join(random.choice(characters) for _ in range(12))
+
+        self.popup_ui.password_entry.delete(0, tk.END)
+        self.popup_ui.password_entry.insert(INSERT, random_password)
+        self.popup_ui.security.check_password_strength()
+
+        return None
+
 
 
 

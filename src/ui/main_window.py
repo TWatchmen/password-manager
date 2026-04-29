@@ -12,6 +12,7 @@ class MainWindow:
     def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
         # generate root window
 
+        self.button_pwd_gen = None
         self.password_strength_indicator_3 = None
         self.password_strength_indicator_2 = None
         self.password_strength_indicator_1 = None
@@ -93,7 +94,7 @@ class MainWindow:
         self.scrollbar.pack(side="right", fill="y")
 
         # Define Listbox
-        self.listbox = tk.Listbox(self.root, width=60, height=15, font=("Arial", 15),
+        self.listbox = tk.Listbox(self.root, width=60, height=15, font=("Arial", 15), borderwidth=4,
                                   yscrollcommand=self.scrollbar.set)
         self.listbox.place(relx=0.5, rely=0.1, anchor="n")
 
@@ -106,7 +107,8 @@ class MainWindow:
 
         # Button for changing entry
         self.button_open = tk.Button(self.root, text="Open",
-                                    command=lambda: self.actions.handle_open_account(self.listbox, self.accounts, self.open_account_window))
+                                    command=lambda: self.actions.handle_open_account
+                                    (self.listbox, self.accounts, self.open_account_window))
         self.button_open.place(relx=0.3, rely=0.85, anchor="s")
 
         """
@@ -124,12 +126,16 @@ class MainWindow:
     def add_account_window(self):
         self.popup = self.popup_window.create_popup(title="Add Account")
 
-
-
+        # Button to generate a secure password
+        self.button_pwd_gen = tk.Button(self.popup, text="Generate password", command=self.actions.generate_password)
+        self.button_pwd_gen.place(relx=0.5, rely=0.8, anchor="center")
 
         # Button for saving entries in database
         self.button_save = tk.Button(self.popup, text="Save", command=self.actions.add_account_action)
-        self.button_save.place(relx=0.5, rely=0.8, anchor="center")
+        self.button_save.place(relx=0.7, rely=0.8, anchor="center")
+
+
+
 
 
 
@@ -148,6 +154,10 @@ class MainWindow:
                                         self.popup_window.password_entry.get().strip(),
                                         self.popup_window.notes_entry.get().strip()))
         self.button_save.place(relx=0.4, rely=0.8, anchor="center")
+
+        # Button to generate a secure password
+        self.button_pwd_gen = tk.Button(self.popup, text="Generate password", command=self.actions.generate_password)
+        self.button_pwd_gen.place(relx=0.8, rely=0.8, anchor="center")
 
 
         self.button_close = tk.Button(self.popup, text="Close",
