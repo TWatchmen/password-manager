@@ -1,4 +1,4 @@
-
+import tkinter as tk
 
 
 class PasswordSecurity:
@@ -8,6 +8,10 @@ class PasswordSecurity:
 
     def check_password_strength(self, event=None):
         password = self.popup_window.password_entry.get()
+
+        # Label "Password Strength"
+        (tk.Label(self.popup_window.popup, text="Password Strength", font=("Arial", 8))
+         .place(relx=0.85, rely=0.45, anchor="center"))
 
         self.popup_window.password_strength_indicator_1.configure(bg="lightgrey")
         self.popup_window.password_strength_indicator_2.configure(bg="lightgrey")

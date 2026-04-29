@@ -59,30 +59,25 @@ class PopupWindow:
         tk.Label(self.popup, text="Add Account", font=("Arial", 15)).pack(expand=True)
 
         # Plattform label and entry
-        self.plattform_label = tk.Label(self.popup, text="Plattform", font=("Arial", 10))
-        self.plattform_label.place(relx=0.4, rely=0.15, anchor="center")
+        tk.Label(self.popup, text="Plattform", font=("Arial", 10)).place(relx=0.4, rely=0.15, anchor="center")
         self.plattform_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.plattform_entry.place(relx=0.5, rely=0.2, anchor="center", width=250)
 
         # Username label and entry
-        self.username_label = tk.Label(self.popup, text="Username", font=("Arial", 10))
-        self.username_label.place(relx=0.4, rely=0.25, anchor="center")
+        tk.Label(self.popup, text="Username", font=("Arial", 10)).place(relx=0.4, rely=0.25, anchor="center")
         self.username_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.username_entry.place(relx=0.5, rely=0.3, anchor="center", width=250)
 
         # Email label and entry
-        self.email_label = tk.Label(self.popup, text="Email", font=("Arial", 10))
-        self.email_label.place(relx=0.4, rely=0.35, anchor="center")
+        tk.Label(self.popup, text="Email", font=("Arial", 10)).place(relx=0.4, rely=0.35, anchor="center")
         self.email_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.email_entry.place(relx=0.5, rely=0.4, anchor="center", width=250)
 
         # Password label and entry
-        self.password_label = tk.Label(self.popup, text="Password", font=("Arial", 10))
-        self.password_label.place(relx=0.4, rely=0.45, anchor="center")
+        tk.Label(self.popup, text="Password", font=("Arial", 10)).place(relx=0.4, rely=0.45, anchor="center")
         self.password_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.password_entry.place(relx=0.5, rely=0.5, anchor="center", width=250)
-        self.password_strength_label = tk.Label(self.popup, text="Password Strength", font=("Arial", 8))
-        self.password_strength_label.place(relx=0.85, rely=0.45, anchor="center")
+
         self.password_entry.bind("<KeyRelease>", self.security.check_password_strength)
 
         # Password strength indicator
@@ -94,8 +89,7 @@ class PopupWindow:
         self.password_strength_indicator_3.place(relx=0.88, rely=0.5, anchor="center")
 
         # Notes label and entry
-        self.notes_label = tk.Label(self.popup, text="Notes (optional)", font=("Arial", 10))
-        self.notes_label.place(relx=0.4, rely=0.55, anchor="center")
+        tk.Label(self.popup, text="Notes (optional)", font=("Arial", 10)).place(relx=0.4, rely=0.55, anchor="center")
         self.notes_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.notes_entry.place(relx=0.5, rely=0.6, anchor="center", width=250)
 
