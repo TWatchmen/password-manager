@@ -1,9 +1,13 @@
+import string
+import random
 import tkinter as tk
+from tkinter.constants import INSERT
 
 
 class PasswordSecurity:
     def __init__(self, popup_ui):
         self.popup_window = popup_ui
+        self.popup_ui = popup_ui
         return
 
     def check_password_strength(self, event=None):
@@ -41,6 +45,16 @@ class PasswordSecurity:
             self.popup_window.password_strength_indicator_1.config(bg="green")
             self.popup_window.password_strength_indicator_2.config(bg="green")
             self.popup_window.password_strength_indicator_3.config(bg="green")
+
+
+
+    def generate_password(self):
+        characters = string.ascii_letters + string.digits + string.punctuation
+        random_password = "".join(random.choice(characters) for _ in range(12))
+
+        self.popup_ui.password_entry.delete(0, tk.END)
+        self.popup_ui.password_entry.insert(INSERT, random_password)
+        self.popup_ui.security.check_password_strength()
 
 
 

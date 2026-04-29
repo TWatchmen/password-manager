@@ -127,7 +127,7 @@ class MainWindow:
         self.popup = self.popup_window.create_popup(title="Add Account")
 
         # Button to generate a secure password
-        self.button_pwd_gen = tk.Button(self.popup, text="Generate password", command=self.actions.generate_password)
+        self.button_pwd_gen = tk.Button(self.popup, text="Generate password", command=self.security.generate_password)
         self.button_pwd_gen.place(relx=0.5, rely=0.8, anchor="center")
 
         # Button for saving entries in database
@@ -156,7 +156,7 @@ class MainWindow:
         self.button_save.place(relx=0.4, rely=0.8, anchor="center")
 
         # Button to generate a secure password
-        self.button_pwd_gen = tk.Button(self.popup, text="Generate password", command=self.actions.generate_password)
+        self.button_pwd_gen = tk.Button(self.popup, text="Generate password", command=self.security.generate_password)
         self.button_pwd_gen.place(relx=0.8, rely=0.8, anchor="center")
 
 
