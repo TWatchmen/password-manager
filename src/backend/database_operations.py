@@ -15,15 +15,15 @@ db_path.parent.mkdir(parents=True, exist_ok=True)
 def create_db():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute('''
+    cursor.execute("""
                     CREATE TABLE IF NOT EXISTS master
                     (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         password TEXT NOT NULL
                     )
-                    ''')
+                    """)
 
-    cursor.execute('''
+    cursor.execute("""
                    CREATE TABLE IF NOT EXISTS accounts
                    (
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,17 +33,17 @@ def create_db():
                        password TEXT NOT NULL,
                        notes TEXT
                    )
-                   ''')
-
+                   """)
     conn.commit()
     conn.close()
-
 
 def insert_master_pwd(password):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO master (password) VALUES (?)",
+    cursor.execute("""INSERT INTO master 
+                          (password)
+                      VALUES (?)
+        """,
         (password,)
     )
     conn.commit()
@@ -53,7 +53,14 @@ def insert_account(plattform, username, email, password, notes):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO accounts (plattform, username, email, password, notes) VALUES (?, ?, ?, ?, ?)",
+        """INSERT INTO accounts 
+               (plattform, 
+                username, 
+                email, 
+                password, 
+                notes) 
+           VALUES (?, ?, ?, ?, ?)
+        """,
         (plattform, username, email, password, notes, )
     )
     conn.commit()
@@ -63,7 +70,10 @@ def check_login(password):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    cursor.execute("SELECT password FROM master WHERE id = 1")
+    cursor.execute("""SELECT password 
+                      FROM master 
+                      WHERE id = 1
+                   """)
     result = cursor.fetchone()
     conn.close()
 
@@ -75,7 +85,9 @@ def check_login(password):
 def show_accounts():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM accounts ORDER BY plattform ASC")
+    cursor.execute("""SELECT * FROM accounts 
+                      ORDER BY plattform ASC
+                   """)
     rows = cursor.fetchall()
     conn.close()
     return [Account.from_db_row(row) for row in rows]
@@ -83,7 +95,9 @@ def show_accounts():
 def select_account(account_id):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM accounts WHERE id = ?", (account_id,))
+    cursor.execute("""SELECT * FROM accounts 
+                      WHERE id = ?
+                   """, (account_id,))
     row = cursor.fetchone()
     conn.close()
     return Account.from_db_row(row)

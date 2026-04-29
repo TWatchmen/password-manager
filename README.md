@@ -2,17 +2,11 @@
 Tool to manage your passwords
 
 
-
-## Featurs
-    [] add master password
-    [] change master password
-    [] add different account
-    [] change account values
-    [] safe data encrypted
-    [] start as exe file
-
 ## Installation
 ...
+
+
+## Features
 
 ## Structure
     .
@@ -20,11 +14,16 @@ Tool to manage your passwords
     ├── docs                    
     ├── src
     │   ├── backend
-    │   │   └── database_operations.py
+    │   │   └── 
     │   ├── models
+    │   │   └── 
     │   ├── services
+    │   │   └── 
     │   ├── ui
+    │   │   └── 
+    │   │   └── 
     │   └── utils
+    │       └── 
     ├── .gitignore                    
     ├── main.py                   
     ├── LICENSE

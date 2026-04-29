@@ -11,6 +11,10 @@ from src.utils.security import PasswordSecurity
 class MainWindow:
     def __init__(self, root, main_ui, popup_ui, start_screen = "welcome"):
         # generate root window
+
+        self.password_strength_indicator_3 = None
+        self.password_strength_indicator_2 = None
+        self.password_strength_indicator_1 = None
         self.password_strength_indicator = None
         self.button_close = None
         self.button_open = None

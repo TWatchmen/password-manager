@@ -4,6 +4,8 @@ from src.utils import security
 
 class PopupWindow:
     def __init__(self, root):
+        self.popup_height = None
+        self.popup_width = None
         self.security = None
         self.password_strength_indicator_3 = None
         self.password_strength_indicator_2 = None
@@ -27,15 +29,34 @@ class PopupWindow:
 
 
 
+
+
     def create_popup(self, title= None):
+
+
         # opening popup window
         self.popup = tk.Toplevel(self.root)
         self.popup.title(title)
-        self.popup.geometry("500x400")
+        self.popup_width = 500
+        self.popup_height = 400
+
+        # Get root window size to create popup in the middle
+        self.root.update_idletasks()
+        root_x = self.root.winfo_x()
+        root_y = self.root.winfo_y()
+        root_width = self.root.winfo_width()
+        root_height = self.root.winfo_height()
+
+        x = root_x + (root_width // 2) - (self.popup_width // 2)
+        y = root_y + (root_height // 2) - (self.popup_height // 2)
+
+        self.popup.geometry(f"{self.popup_width}x{self.popup_height}+{x}+{y}")
+        self.popup.focus_set()
+
+
 
         # Headline
-        self.add_label = tk.Label(self.popup, text="Add Account", font=("Arial", 15))
-        self.add_label.place(relx=0.5, rely=0.05, anchor="center")
+        tk.Label(self.popup, text="Add Account", font=("Arial", 15)).pack(expand=True)
 
         # Plattform label and entry
         self.plattform_label = tk.Label(self.popup, text="Plattform", font=("Arial", 10))
@@ -60,10 +81,11 @@ class PopupWindow:
         self.password_label.place(relx=0.4, rely=0.45, anchor="center")
         self.password_entry = tk.Entry(self.popup, font=("Arial", 10))
         self.password_entry.place(relx=0.5, rely=0.5, anchor="center", width=250)
-        self.password_entry.bind("<KeyRelease>", self.security.check_password_strength)
         self.password_strength_label = tk.Label(self.popup, text="Password Strength", font=("Arial", 8))
         self.password_strength_label.place(relx=0.85, rely=0.45, anchor="center")
+        self.password_entry.bind("<KeyRelease>", self.security.check_password_strength)
 
+        # Password strength indicator
         self.password_strength_indicator_1 = tk.Label(self.popup, text="   ", font=("Arial", 10))
         self.password_strength_indicator_1.place(relx=0.8, rely=0.5, anchor="center")
         self.password_strength_indicator_2 = tk.Label(self.popup, text="   ", font=("Arial", 10))
