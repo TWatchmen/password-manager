@@ -3,6 +3,8 @@ import random
 import tkinter as tk
 from tkinter.constants import INSERT
 
+import bcrypt
+
 
 class PasswordSecurity:
     def __init__(self, popup_ui):
@@ -61,4 +63,14 @@ class PasswordSecurity:
 class DatabaseSecurity:
     def __init__(self):
         return
+
+
+    @staticmethod
+    def hash_password(password:str) -> str:
+        return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+    @staticmethod
+    def verify_password(password:str, hashed_password:str) -> bool:
+        return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
+
 

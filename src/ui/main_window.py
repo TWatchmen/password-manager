@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import font
+
 from src.backend import database_actions
 from src.services.actions import Actions
 from src.ui import popup_window
@@ -134,11 +136,8 @@ class MainWindow:
         self.button_save = tk.Button(self.popup, text="Save", command=self.actions.add_account_action)
         self.button_save.place(relx=0.7, rely=0.8, anchor="center")
 
-
-
-
-
-
+        self.button_close = tk.Button(self.popup, text="Close", command=lambda: self.popup.destroy())
+        self.button_close.place(relx=0.9, rely=0.8, anchor="center")
 
 
     def open_account_window(self, account_id = None):

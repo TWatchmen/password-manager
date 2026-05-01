@@ -4,12 +4,21 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter.constants import INSERT
 
+from src.models.account import Account
+from src.utils.security import DatabaseSecurity
+
 from src.backend import database_actions
+from src.utils import security
+
+
+def add_account(plattform, username, email, password, notes):
+    database_actions.insert_account(plattform, username, email, password, notes)
 
 
 class Actions:
 
     def __init__(self, main_ui, popup_ui):
+        self.security = DatabaseSecurity()
         self.listbox = None
         self.main_ui = main_ui
         self.popup_ui = popup_ui
@@ -28,12 +37,6 @@ class Actions:
         if success:
             self.main_ui.show_screen("login")
 
-    def add_account(self, plattform, username, email, password, notes):
-        database_actions.insert_account(plattform, username, email, password, notes)
-        print("add success")
-        return True
-
-
     # Function adding action to the button
     def add_account_action(self):
 
@@ -46,7 +49,9 @@ class Actions:
         email = self.popup_ui.email_entry.get().strip()
         password = self.popup_ui.password_entry.get().strip()
         notes = self.popup_ui.notes_entry.get().strip()
-        self.add_account(plattform, username, email, password, notes)
+
+        add_account(plattform, username, email, password, notes)
+
         self.popup_ui.popup.destroy()
         self.show_account_action()
         self.main_ui.show_screen("menu")
@@ -63,6 +68,7 @@ class Actions:
 
     def show_account_action(self):
         accounts = database_actions.show_accounts()
+
         self.main_ui.accounts = accounts
         # Empty list before reload
         self.main_ui.listbox.delete(0, tk.END)
@@ -91,7 +97,6 @@ class Actions:
         else:
             print("login success")
             return True
-
 
     def edit_account(self,account_id, plattform, username, email, password, notes):
         database_actions.save_account(account_id, plattform, username, email, password, notes)
