@@ -7,6 +7,16 @@ Tool to manage your passwords
 
 
 ## Features
+- [x] Master password
+- [ ] Generate secure passwords
+- [ ] Measuring password security
+- [ ] Add new accounts
+- [ ] Change account values likes usersname, email and password
+- [ ] SQL database
+- [ ] Hashed passwords
+- [ ] Encrypted database
+- [ ] Copy to clipboard function
+- [ ] favorite accounts
 
 ## Structure
     .
@@ -32,3 +42,4 @@ Tool to manage your passwords
 ## Technology
 - Python
 - SQLite
+- Tkinter, ttk?, 
